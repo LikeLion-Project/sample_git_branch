@@ -1,28 +1,46 @@
-== README
+== git branch project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+1. Local에 새로운 프로젝트 생성 / github에 repository 생성
+2. git 기본 세팅 
+    * $git init 
+    * $git config --global user.name choijaewoong
+    * $git config --global user.email jwchoi0129@gmail.com 
+    * $git remote add origin https://github.com/LikeLion-Project/sample_git_branch.git :  원격 저장소 설정
+    * $git add . 
+    * $git commit -m "commit message" 
+    * $git push -u origin master
+3. github에 잘 올라갔는 지 확인
+4. branch 생성하기 
+    * $git checkout -b first
+      * first 라는 branch 생성
+      * $git branch first / $git checkout first 를 한번에 하는 명령어
+        * $git branch first : first branch 생성
+        * $git checkout first : first branch로 head를 옮김  
+5. first branch에서 내용 변경 후 commit, push
+    * master branch에 commit 되지 않고 first branch에 commit 됨
+    * master branch에서 작업 하려면 $git checkout master 명령어를 통해 head를 이동해야함
+6. first branch에서 작업한 내용 master에 merge 하기
+    * $git branch master : master branch로 head 이동.
+    * $git merge first : first branch를 해당 branch(master)에 merge 함.
+    * $git push -u origin master : merge가 문제없이 된 경우 원격 저장소에 push.
+7. 일부러 Conflict를 내보자.
+    * $git checkout -b second
+    * second branch에서 내용 수정 후 commit, push
+    * $git branch master : 다시 master branch로 이동하기 
+    * master branch에서 내용 수정 후 commit, push
+    * $git merge second : master branch에 second branch merge
+      * conflict message 출력
+        CONFLICT (content): Merge conflict in ~ 
+        Automatic merge failed; fix conflicts and then commit the result.
+    * $git status : 충돌된 부분 확인
+    * 충돌 부분 확인 후 적당히 수정하기
+      <<<<<<< HEAD
+      master branch 내용
+      =======
+      second branch 내용
+      >>>>>>> second
+    * git add . : 바뀐 내용 더하기 
+    * git commit -m "commit message" 
+    * git push -u origin master : 충돌 부분 수정 후 commit, push
+    
+    
